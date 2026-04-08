@@ -1,0 +1,55 @@
+# ============================================================
+#  Dockerfile — Financial MCP Agent Backend
+#
+#  基础镜像：python:3.11-slim（本地已有，~124MB）
+#
+#  当前镜像除了 Agent 主链路外，还需要支持：
+#    - C8 Hybrid RAG：FAISS / BM25 / sentence-transformers
+#    - C9 Graph RAG：Neo4j / Milvus 客户端
+#  python:3.11-slim 内置情况：
+#    ✅ libffi8        —— 运行时 OK
+#    ✅ libgcc-s1      —— 运行时 OK
+#    ❌ libgomp1       —— FAISS 常用运行时依赖，需要补
+#    ❌ gcc / g++      —— baostock / numpy 扩展编译需要
+#    ❌ build-essential—— 需要补
+#
+#  策略：装完 pip 包后删掉编译工具，只保留运行时 so
+# ============================================================
+
+FROM python:3.11-slim
+
+# ------ 系统依赖（编译期 + 运行期） ------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    # 运行期需要
+    curl \
+    ca-certificates \
+    libffi-dev \
+    libgomp1 \
+    # 编译期需要（baostock / 某些 numpy 扩展需要 gcc）
+    gcc \
+    g++ \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装 uv（用于在容器内启动 MCP stdio 子进程）
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:$PATH"
+
+WORKDIR /app
+
+# ------ Python 依赖（先拷贝 requirements 利用缓存层）------
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt \
+    # 编译完成后删掉 gcc 等编译工具 减小镜像体积
+    && apt-get purge -y --auto-remove gcc g++ build-essential \
+    && rm -rf /var/lib/apt/lists/* /root/.cache
+
+# ------ 项目源码 ------
+COPY src/ ./src/
+COPY __init__.py ./
+
+# 数据/报告目录（由 volume 挂载覆盖，这里只是占位）
+RUN mkdir -p /app/data /app/reports /app/logs
+
+# ------ 启动 ------
+CMD ["uvicorn", "src.backend:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

@@ -1,0 +1,22 @@
+{
+  "metadata": {
+    "summary_agent_executed": true,
+    "summary_agent_timestamp": "1775480372.4704776",
+    "summary_agent_execution_time": "92.93 seconds"
+  },
+  "data_keys": [
+    "query",
+    "current_date",
+    "current_date_cn",
+    "current_time",
+    "current_weekday_cn",
+    "current_time_info",
+    "analysis_timestamp",
+    "company_name",
+    "stock_code",
+    "final_report",
+    "summary_analysis_structured",
+    "report_path"
+  ],
+  "elapsed_seconds": 119.4
+}

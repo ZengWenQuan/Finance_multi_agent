@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "news_agent_executed": true,
+    "news_agent_timestamp": "1775480491.4177263",
+    "news_agent_execution_time": "36.80 seconds"
+  },
+  "data_keys": [
+    "query",
+    "current_date",
+    "current_date_cn",
+    "current_time",
+    "current_weekday_cn",
+    "current_time_info",
+    "analysis_timestamp",
+    "company_name",
+    "stock_code",
+    "news_analysis",
+    "news_analysis_structured"
+  ],
+  "elapsed_seconds": 55.5
+}

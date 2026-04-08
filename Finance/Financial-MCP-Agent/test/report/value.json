@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "value_agent_executed": true,
+    "value_agent_timestamp": "1775480468.0402415",
+    "value_agent_execution_time": "13.83 seconds"
+  },
+  "data_keys": [
+    "query",
+    "current_date",
+    "current_date_cn",
+    "current_time",
+    "current_weekday_cn",
+    "current_time_info",
+    "analysis_timestamp",
+    "company_name",
+    "stock_code",
+    "value_analysis",
+    "value_analysis_structured"
+  ],
+  "elapsed_seconds": 32.2
+}

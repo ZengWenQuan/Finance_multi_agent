@@ -1,0 +1,1 @@
+Error: No Adjustment Factor data found for the specified criteria (empty result set).

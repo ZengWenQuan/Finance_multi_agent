@@ -1,0 +1,7 @@
+{
+  "query": "亨通光电怎么样 (600487.SH)",
+  "expected_company": "亨通光电",
+  "expected_code": "sh.600487",
+  "extracted_company": "亨通光电",
+  "extracted_code": "600487"
+}

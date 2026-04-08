@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "technical_agent_error": "Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}",
+    "value_agent_error": "Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}",
+    "news_agent_executed": false,
+    "news_agent_timestamp": "1775477299.9795964",
+    "news_agent_execution_time": "107.57 seconds",
+    "summary_agent_executed": true,
+    "summary_agent_timestamp": "1775477299.992251",
+    "summary_agent_execution_time": "0.00 seconds"
+  },
+  "data": {
+    "query": "亨通光电怎么样 (600487.SH)",
+    "current_date": "2026-04-06",
+    "current_date_cn": "2026年04月06日",
+    "current_time": "19:58:28",
+    "current_weekday_cn": "星期一",
+    "current_time_info": "2026年04月06日 (2026-04-06) 星期一 19:58:28",
+    "analysis_timestamp": "2026-04-06T19:58:28.628411",
+    "company_name": "亨通光电",
+    "stock_code": "sh.600487",
+    "technical_analysis_error": "Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}",
+    "technical_analysis": "技术分析过程中出现错误: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}",
+    "technical_analysis_structured": {
+      "company_name": "亨通光电",
+      "stock_code": "sh.600487",
+      "summary": null,
+      "key_points": [],
+      "major_risks": [],
+      "missing_data": [
+        "Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}"
+      ],
+      "raw_analysis": "技术分析过程中出现错误: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}",
+      "trend_view": null,
+      "momentum_view": null,
+      "volume_view": null,
+      "support_resistance_view": null,
+      "short_term_outlook": null
+    },
+    "value_analysis_error": "Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}",
+    "value_analysis": "估值分析过程中出现错误: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}",
+    "value_analysis_structured": {
+      "company_name": "亨通光电",
+      "stock_code": "sh.600487",
+      "summary": null,
+      "key_points": [],
+      "major_risks": [],
+      "missing_data": [
+        "Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}"
+      ],
+      "raw_analysis": "估值分析过程中出现错误: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}",
+      "valuation_view": null,
+      "relative_valuation_view": null,
+      "historical_valuation_view": null,
+      "shareholder_return_view": null,
+      "investment_view": null
+    },
+    "news_analysis_error": "analysis output matched invalid pattern: sorry,\\s*need more steps",
+    "news_analysis": "新闻分析未获得可用的真实分析结果：analysis output matched invalid pattern: sorry,\\s*need more steps。\n原始输出：Sorry, need more steps to process this request.",
+    "news_analysis_structured": {
+      "company_name": "亨通光电",
+      "stock_code": "sh.600487",
+      "summary": "亨通光电",
+      "key_points": [
+        "公司名称：亨通光电",
+        "股票代码：sh.600487"
+      ],
+      "major_risks": [
+        "分析输出匹配无效模式：sorry,\\s*need more steps"
+      ],
+      "missing_data": [
+        "缺少足够的真实分析结果",
+        "analysis output matched invalid pattern: sorry,\\s*need more steps"
+      ],
+      "raw_analysis": "新闻分析未获得可用的真实分析结果：analysis output matched invalid pattern: sorry,\\s*need more steps。原始输出：Sorry, need more steps to process this request.",
+      "sentiment_view": "缺失",
+      "risk_view": "缺失",
+      "market_impact_view": "缺失",
+      "key_events": [
+        "缺少足够的真实分析结果"
+      ],
+      "investment_view": "缺失"
+    },
+    "final_report": "# 亨通光电(sh.600487) 综合分析报告\n\n## 执行摘要\n当前可用真实数据不足，以下报告仅汇总已成功获取的分析结果，不补充任何未验证指标。\n\n## 基本面分析\nNot available\n\n## 技术分析\n未获取到可用结果。\n\n## 估值分析\n未获取到可用结果。\n\n## 新闻分析\n未获取到可用结果。\n\n## 数据限制与风险\n- Technical Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}\n- Value Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}\n- News Analysis Error: analysis output matched invalid pattern: sorry,\\s*need more steps\n- 技术分析不可用: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}\n- 估值分析不可用: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}\n- 新闻分析不可用: analysis output matched invalid pattern: sorry,\\s*need more steps\n\n分析基准时间：2026年04月06日 (2026-04-06) 星期一 19:58:28",
+    "summary_analysis_structured": {
+      "company_name": "亨通光电",
+      "stock_code": "sh.600487",
+      "summary": "# 亨通光电(sh.600487) 综合分析报告\n\n## 执行摘要\n当前可用真实数据不足，以下报告仅汇总已成功获取的分析结果，不补充任何未验证指标。\n\n## 基本面分析\nNot available\n\n## 技术分析\n未获取到可用结果。\n\n## 估值分析\n未获取到可用结果。\n\n## 新闻分析\n未获取到可用结果。\n\n## 数据限制与风险\n- Technical Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input promp",
+      "key_points": [],
+      "major_risks": [],
+      "missing_data": [
+        "Technical Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}; Value Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}; News Analysis Error: analysis output matched invalid pattern: sorry,\\s*need more steps; 技术分析不可用: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}; 估值分析不可用: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}; 新闻分析不可用: analysis output matched invalid pattern: sorry,\\s*need more steps"
+      ],
+      "raw_analysis": "# 亨通光电(sh.600487) 综合分析报告\n\n## 执行摘要\n当前可用真实数据不足，以下报告仅汇总已成功获取的分析结果，不补充任何未验证指标。\n\n## 基本面分析\nNot available\n\n## 技术分析\n未获取到可用结果。\n\n## 估值分析\n未获取到可用结果。\n\n## 新闻分析\n未获取到可用结果。\n\n## 数据限制与风险\n- Technical Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}\n- Value Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}\n- News Analysis Error: analysis output matched invalid pattern: sorry,\\s*need more steps\n- 技术分析不可用: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}\n- 估值分析不可用: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}\n- 新闻分析不可用: analysis output matched invalid pattern: sorry,\\s*need more steps\n\n分析基准时间：2026年04月06日 (2026-04-06) 星期一 19:58:28",
+      "investment_thesis": null,
+      "recommendation": null,
+      "confidence": null,
+      "catalysts": [],
+      "data_limitations": [
+        "Technical Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}; Value Analysis Error: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}; News Analysis Error: analysis output matched invalid pattern: sorry,\\s*need more steps; 技术分析不可用: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}; 估值分析不可用: Error in MCP or agent execution: Error code: 400 - {'error': {'message': \"This model's maximum context length is 32768 tokens. However, you requested 1500 output tokens and your prompt contains at least 31269 input tokens, for a total of at least 32769 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=31269)\", 'type': 'BadRequestError', 'param': 'input_tokens', 'code': 400}}; 新闻分析不可用: analysis output matched invalid pattern: sorry,\\s*need more steps"
+      ]
+    },
+    "report_path": "/home/irving/workspace/agent_demo/Finance/Financial-MCP-Agent/reports/report_亨通光电_600487_20260406_200819.md"
+  }
+}

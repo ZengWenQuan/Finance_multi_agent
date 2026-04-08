@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="金融多智能体分析工作台 — 基于 Multi-Agent 的 A 股研究平台" />
+  <title>Financial MCP Agent — 金融研究工作台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- ===== 顶栏 ===== -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="eyebrow">Multi-Agent Research Workbench</div>
+        <h1>Financial MCP Agent <span class="brand-sub">金融研究工作台</span></h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="testLlmBtn" class="btn btn-sm" type="button">测试 LLM</button>
+        <span id="llmStatusDot" class="llm-status-dot" title="未检测"></span>
+        <span id="llmStatusText" class="llm-status-text">未检测</span>
+      </div>
+    </header>
+
+    <!-- ===== 主布局 ===== -->
+    <main class="layout">
+
+      <!-- 1. 新建分析面板 - 分步工作流 -->
+      <section class="panel panel-form" id="panel-form">
+        <div class="panel-head">
+          <h2>新建分析</h2>
+          <span id="taskStatusBadge" class="badge idle">Idle</span>
+        </div>
+        <textarea id="queryInput" placeholder="例如：603871 这个股票值得买吗？&#10;或直接输入公司名：分析腾讯的投资价值"></textarea>
+
+        <!-- 步骤 1：解析 -->
+        <div class="step-row" id="stepParse">
+          <div class="step-info">
+            <span class="step-num">1</span>
+            <span class="step-label">解析查询</span>
+            <span id="parseResult" class="step-result"></span>
+          </div>
+          <button id="parseBtn" class="btn btn-sm step-btn">开始解析</button>
+        </div>
+
+        <!-- 步骤 2：分析师（可单独运行） -->
+        <div class="step-row step-analysts">
+          <div class="step-info">
+            <span class="step-num">2</span>
+            <span class="step-label">分析师</span>
+          </div>
+          <div class="analyst-buttons" id="analystButtons">
+            <button class="btn btn-sm analyst-btn locked" data-agent="fundamental_agent" disabled>
+              <span class="agent-icon small fundamental">📊</span> 基本面
+            </button>
+            <button class="btn btn-sm analyst-btn locked" data-agent="technical_agent" disabled>
+              <span class="agent-icon small technical">📈</span> 技术面
+            </button>
+            <button class="btn btn-sm analyst-btn locked" data-agent="value_agent" disabled>
+              <span class="agent-icon small value">💰</span> 估值
+            </button>
+            <button class="btn btn-sm analyst-btn locked" data-agent="news_agent" disabled>
+              <span class="agent-icon small news">📰</span> 新闻
+            </button>
+          </div>
+        </div>
+
+        <!-- 步骤 3：综合报告 -->
+        <div class="step-row" id="stepSummary">
+          <div class="step-info">
+            <span class="step-num">3</span>
+            <span class="step-label">综合报告</span>
+            <span id="summaryHint" class="step-hint">需全部分析师完成</span>
+          </div>
+          <button id="summarizeBtn" class="btn btn-sm step-btn locked" disabled>生成报告</button>
+        </div>
+
+        <div id="taskMeta" class="meta-list"></div>
+        <!-- 分析进度条 -->
+        <div id="progressWrap" class="progress-wrap hidden">
+          <div class="progress-bar-track"><div id="progressBar" class="progress-bar-fill"></div></div>
+          <div id="progressLabel" class="progress-label">正在分析...</div>
+        </div>
+      </section>
+
+      <!-- 2. Agent 分析结果面板 -->
+      <section class="panel panel-agents" id="panel-agents">
+        <div class="panel-head">
+          <h2>Agent 分析结果</h2>
+          <span class="hint-text" id="agentCountLabel"></span>
+        </div>
+        <div id="agentsContainer" class="accordion-list"></div>
+      </section>
+
+      <!-- 3. 综合报告面板 -->
+      <section class="panel panel-report" id="panel-report">
+        <div class="panel-head">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <h2>综合报告</h2>
+            <select id="sessionSelect" style="width: auto; min-width: 140px; padding: 4px 10px; font-size: 12px; margin: 0;"></select>
+            <button id="refreshSessionsBtn" class="ghost btn-icon" title="刷新" style="padding: 4px;">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" width="14" height="14"><path d="M4 10a6 6 0 1 1 2 4.5"/><path d="M4 14v-4H8"/></svg>
+            </button>
+          </div>
+          <button id="copyReportBtn" class="ghost btn-sm hidden">复制</button>
+        </div>
+        <div id="reportContent" class="report-view markdown-body">
+          <div class="empty-hint">请选择一只股票或创建新分析查看综合报告。</div>
+        </div>
+      </section>
+
+      <!-- 4. 聊天面板 -->
+      <aside class="panel panel-chat" id="panel-chat">
+        <div class="panel-head" style="display: flex; justify-content: space-between; align-items: center;">
+          <div style="display: flex; flex-direction: column;">
+            <h2>研究助理</h2>
+            <span class="hint-text">基于报告追问</span>
+          </div>
+          <select id="ragModeSelect" style="font-size: 11px; padding: 2px 4px; border-radius: 4px; border: 1px solid var(--border-light); background: var(--bg-body); color: var(--text-main);">
+            <option value="c8_hybrid_rag">C8 Hybrid RAG</option>
+            <option value="c9_graph_rag">C9 Graph RAG</option>
+          </select>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-compose">
+          <textarea id="chatInput" placeholder="基于当前报告继续追问，例如：PE 是否偏高？风险在哪里？"></textarea>
+          <button id="sendChatBtn">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M17 3L10 10M17 3l-5 14-2-7-7-2 14-5z"/></svg>
+            发送
+          </button>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- marked.js for Markdown 渲染 -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

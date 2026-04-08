@@ -1,0 +1,68 @@
+# Project-local large assets and datasets
+Qwen3.5-Tiny/
+all-in-rag/
+models/
+data/
+logs/
+
+# Generated test/doc outputs in this workspace root only
+/test/
+/docs/
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+
+# Notebook and editor state
+.ipynb_checkpoints/
+.DS_Store
+.codex
+
+# Model and training artifacts
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+checkpoint-*/
+
+# Local databases and vector/graph stores
+*.db
+*.sqlite
+*.sqlite3
+*.arrow
+*.faiss
+*.parquet
+*.pkl
+*.joblib
+*.npy
+*.npz
+*.h5
+*.hdf5
+neo4j/
+
+# Logs and runtime files
+*.log
+*.pid
+*.out
+*.err
+
+# Local caches and downloads
+.cache/
+*.incomplete
+
+# Local env/config secrets
+.env
+.env.*
+
+# Project-specific generated outputs
+.deepeval/
+reports/
+build.log
+build2.log
