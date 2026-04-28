@@ -4,7 +4,7 @@
 #  基础镜像：python:3.11-slim（本地已有，~124MB）
 #
 #  当前镜像除了 Agent 主链路外，还需要支持：
-#    - C8 Hybrid RAG：FAISS / BM25 / sentence-transformers
+#    - C8 Hybrid RAG：FAISS / langchain-huggingface / sentence-transformers
 #    - C9 Graph RAG：Neo4j / Milvus 客户端
 #  python:3.11-slim 内置情况：
 #    ✅ libffi8        —— 运行时 OK
@@ -38,6 +38,8 @@ ENV PATH="/root/.local/bin:$PATH"
 WORKDIR /app
 
 # ------ Python 依赖（先拷贝 requirements 利用缓存层）------
+# requirements.txt 已包含 FAISS、embedding 与 Graph RAG 所需依赖，
+# 容器构建时会自动安装，不需要额外手工执行安装步骤。
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt \
     # 编译完成后删掉 gcc 等编译工具 减小镜像体积

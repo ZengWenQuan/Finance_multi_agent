@@ -1,12 +1,18 @@
 """
-重建 vector_store.json：清空旧数据，注入上证50/深证100指数成分股知识文档。
+重建本地向量库：注入上证50/深证100指数成分股知识文档。
 与 graph_store.json 对齐。
 """
-import json
+import sys
 from pathlib import Path
 
-DATA_DIR = Path(__file__).resolve().parent.parent / "data"
-VECTOR_STORE = DATA_DIR / "vector_store.json"
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.services.vector_service import VectorService
+
+DATA_DIR = PROJECT_ROOT / "data"
+VECTOR_STORE = DATA_DIR / "vector_store"
 
 # 复用 build_graph_store.py 中的成分股数据
 SSE50_STOCKS = [
@@ -292,13 +298,13 @@ def build_vector_store():
 
 def main():
     docs = build_vector_store()
+    vector_service = VectorService(VECTOR_STORE)
+    count = vector_service.replace_documents(docs)
 
-    # 清空旧文件，写入新数据
-    with open(VECTOR_STORE, "w", encoding="utf-8") as f:
-        json.dump(docs, f, ensure_ascii=False, indent=2)
-
-    print(f"vector_store.json 已清空重建")
-    print(f"  总文档数: {len(docs)}")
+    print("向量库已清空重建")
+    print(f"  文档总数: {count}")
+    print(f"  元数据清单: {vector_service.docs_path}")
+    print(f"  FAISS 索引目录: {vector_service.index_dir}")
 
     # 统计
     types = {}

@@ -107,7 +107,7 @@ def get_default_store() -> SQLiteSessionStore:
 
 def get_default_vector_store_path() -> Path:
     project_root = Path(__file__).resolve().parents[2]
-    return project_root / "data" / "vector_store.json"
+    return project_root / "data" / "vector_store"
 
 
 def get_default_graph_store_path() -> Path:

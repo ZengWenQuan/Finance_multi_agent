@@ -24,7 +24,6 @@ DeepEval RAG 评估脚本
 """
 from __future__ import annotations
 
-import json
 import os
 import sys
 from pathlib import Path
@@ -34,7 +33,7 @@ from deepeval.models.base_model import DeepEvalBaseLLM
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
-VECTOR_STORE = DATA_DIR / "vector_store.json"
+VECTOR_STORE = DATA_DIR / "vector_store"
 GRAPH_STORE = DATA_DIR / "graph_store.json"
 
 # ============================================================
@@ -102,8 +101,9 @@ class DeepSeekModel(DeepEvalBaseLLM):
 # 加载数据
 # ============================================================
 def load_vector_store() -> list[dict]:
-    with open(VECTOR_STORE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    from src.services.vector_service import VectorService
+
+    return VectorService(store_path=str(VECTOR_STORE)).list_documents()
 
 
 def load_graph_store() -> list[dict]:

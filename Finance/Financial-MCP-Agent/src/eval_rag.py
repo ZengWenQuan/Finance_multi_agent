@@ -14,7 +14,7 @@ from collections import Counter
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = PROJECT_ROOT / "data"
-VECTOR_STORE = DATA_DIR / "vector_store.json"
+VECTOR_STORE = DATA_DIR / "vector_store"
 GRAPH_STORE = DATA_DIR / "graph_store.json"
 SQLITE_DB = DATA_DIR / "financial_sessions.db"
 
@@ -90,10 +90,9 @@ RAG_TEST_SET = [
 
 
 def load_vector_store() -> list[dict]:
-    if not VECTOR_STORE.exists():
-        return []
-    with open(VECTOR_STORE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    from src.services.vector_service import VectorService
+
+    return VectorService(store_path=str(VECTOR_STORE)).list_documents()
 
 
 def load_graph_store() -> list[dict]:
@@ -313,7 +312,7 @@ def vector_store_stats(vector_store: list[dict]) -> dict:
     types = {}
     stock_codes = set()
     for r in vector_store:
-        doc_type = r.get("doc_type", "unknown")
+        doc_type = r.get("doc_type") or r.get("metadata", {}).get("type", "unknown")
         types[doc_type] = types.get(doc_type, 0) + 1
         if r.get("stock_code"):
             stock_codes.add(r["stock_code"])

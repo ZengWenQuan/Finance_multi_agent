@@ -15,6 +15,7 @@ langchain-huggingface==0.3.1
 langchain-text-splitters==0.3.8
 
 # C8 Hybrid RAG / C9 Graph RAG 核心依赖
+# Docker 构建时会自动安装这些包，无需额外手工准备向量检索环境
 faiss-cpu>=1.7.0
 rank-bm25==0.2.2
 sentence-transformers>=3.0.0

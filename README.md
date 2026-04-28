@@ -29,55 +29,56 @@
 - MCP 集成：通过标准 MCP 协议接入 A 股数据服务
 - 报告生成：自动输出 Markdown 格式分析报告
 - 本地模型支持：可接入本地 vLLM，也可接远程 OpenAI Compatible API
+- 双检索增强：同时支持 `C8 Hybrid RAG` 与 `C9 Graph RAG`
 - 研究扩展能力：仓库保留了情感分析、风险建模和数据处理实验链路
 
 ## 3. 系统架构
 
 ```mermaid
 flowchart LR
-    U[用户自然语言问题] --> CLI[Financial-MCP-Agent CLI / Backend]
-    CLI --> QP[实体提取与查询解析]
-    QP --> WF[LangGraph 工作流编排]
+    U["用户自然语言问题"] --> CLI["Financial-MCP-Agent CLI 或 Backend"]
+    CLI --> QP["实体提取与查询解析"]
+    QP --> WF["LangGraph 工作流编排"]
 
-    WF --> FA[基本面 Agent]
-    WF --> TA[技术面 Agent]
-    WF --> VA[估值 Agent]
-    WF --> NA[新闻 Agent]
+    WF --> FA["基本面 Agent"]
+    WF --> TA["技术面 Agent"]
+    WF --> VA["估值 Agent"]
+    WF --> NA["新闻 Agent"]
 
-    FA --> MCP[MCP Client]
+    FA --> MCP["MCP Client"]
     TA --> MCP
     VA --> MCP
     NA --> MCP
 
-    MCP --> SERVER[A 股 MCP Server]
-    SERVER --> DATA[Baostock / 财报 / 指数 / 市场工具]
+    MCP --> SERVER["A 股 MCP Server"]
+    SERVER --> DATA["Baostock、财报、指数、市场工具"]
 
-    FA --> SA[Summary Agent]
+    FA --> SA["Summary Agent"]
     TA --> SA
     VA --> SA
     NA --> SA
 
-    SA --> REPORT[Markdown 分析报告]
-    SA --> LOGS[执行日志与调试记录]
+    SA --> REPORT["Markdown 分析报告"]
+    SA --> LOGS["执行日志与调试记录"]
 ```
 
 ## 4. 核心工作流
 
 ```mermaid
 flowchart TD
-    A[用户输入问题] --> B[提取公司名/股票代码]
-    B --> C[初始化执行日志]
-    C --> D[并行启动分析 Agent]
-    D --> D1[fundamental_agent]
-    D --> D2[technical_agent]
-    D --> D3[value_agent]
-    D --> D4[news_agent]
-    D1 --> E[summary_agent 汇总]
+    A["用户输入问题"] --> B["提取公司名和股票代码"]
+    B --> C["初始化执行日志"]
+    C --> D["并行启动分析 Agent"]
+    D --> D1["fundamental_agent"]
+    D --> D2["technical_agent"]
+    D --> D3["value_agent"]
+    D --> D4["news_agent"]
+    D1 --> E["summary_agent 汇总"]
     D2 --> E
     D3 --> E
     D4 --> E
-    E --> F[输出最终报告]
-    F --> G[保存到 reports/]
+    E --> F["输出最终报告"]
+    F --> G["保存到 reports"]
 ```
 
 ## 5. 仓库结构
@@ -168,6 +169,8 @@ start
 - Python 3.11+
 - LangGraph
 - LangChain
+- FAISS
+- Neo4j
 - MCP / FastMCP
 - Baostock
 - Transformers
@@ -189,6 +192,36 @@ langchain-mcp-adapters==0.1.9
 transformers==4.51.3
 huggingface-hub==0.34.4
 uv==0.8.12
+```
+
+## 7.1 RAG 存储设计
+
+项目当前有两条检索增强链路：
+
+- `C8 Hybrid RAG`
+  使用 [vector_service.py](/home/irving/workspace/agent_demo/Finance/Financial-MCP-Agent/src/services/vector_service.py) 提供向量检索
+- `C9 Graph RAG`
+  使用 [graph_store.py](/home/irving/workspace/agent_demo/Finance/Financial-MCP-Agent/src/persistence/graph_store.py) 提供图关系检索
+
+当前实现说明：
+
+- 向量索引已经升级为 `FAISS` 本地持久化索引
+- 文档元数据单独保存在 JSON 清单中，JSON 不再作为向量索引本体
+- 默认落盘形式为 `data/vector_store_faiss/` + `data/vector_store_docs.json`
+- 图存储默认使用本地 JSON 三元组
+- 当配置 `NEO4J_URI`、`NEO4J_USERNAME`、`NEO4J_PASSWORD` 后，`GraphStore` 会切换到 Neo4j
+
+可以把它理解为：
+
+```text
+报告文本 / 知识文档
+  -> chunk
+  -> embedding
+  -> FAISS 向量索引（C8）
+
+报告文本
+  -> 三元组抽取
+  -> GraphStore / Neo4j（C9）
 ```
 
 ## 8. 快速开始
@@ -292,6 +325,16 @@ bash stop_qwen_vllm.sh
 
 `Finance/Financial-MCP-Agent/deploy/` 下已经准备了 Docker 部署方案。
 
+容器镜像会在构建阶段自动安装向量检索和图检索所需依赖，包括：
+
+- `faiss-cpu`
+- `langchain-huggingface`
+- `sentence-transformers`
+- `langchain-community`
+- `neo4j`
+
+因此 Docker 方式下不需要额外手工安装这些库。
+
 首次构建启动：
 
 ```bash
@@ -358,14 +401,14 @@ docker compose -f Finance/Financial-MCP-Agent/deploy/docker-compose.yml logs -f 
 
 ```mermaid
 flowchart LR
-    Browser[浏览器 / 前端] --> Nginx[nginx]
-    Nginx --> Backend[FastAPI / Backend]
-    Backend --> Agent[LangGraph Agent Workflow]
-    Agent --> MCP[MCP stdio 子进程]
-    MCP --> Stock[A 股数据工具]
-    Backend --> SQLite[(SQLite / 本地数据)]
-    Backend --> Report[Markdown 报告]
-    Backend --> Logs[运行日志]
+    Browser["浏览器或前端"] --> Nginx["nginx"]
+    Nginx --> Backend["FastAPI Backend"]
+    Backend --> Agent["LangGraph Agent Workflow"]
+    Agent --> MCP["MCP stdio 子进程"]
+    MCP --> Stock["A 股数据工具"]
+    Backend --> SQLite["SQLite 本地数据"]
+    Backend --> Report["Markdown 报告"]
+    Backend --> Logs["运行日志"]
 ```
 
 ## 14. 适用场景
@@ -414,4 +457,3 @@ flowchart LR
 - 模型使用限制
 - 商业使用边界
 - 风险免责声明
-
